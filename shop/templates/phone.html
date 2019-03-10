@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+<img src = "{{ url_for('static', filename='img/' + phone.image_file) }}">
+
+  <p>{{ phone.model }} &nbsp Manufacturer: {{ phone.manufacturer.name }}</p>
+  <p>{{phone.description}}</p>
+  <p>Price: {{ phone.price }}</p>
+
+  <a class="" href="/add_to_cart/{{phone.id}}">Add to Cart</a>
+
+{% endblock content %}
