@@ -15,14 +15,16 @@ class Phone(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     model = db.Column(db.String(50),nullable=False)
     description = db.Column(db.String(120), nullable=False)
-    #publication_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    mass = db.Column(db.Numeric(10,2), nullable=False)
+    ram = db.Column(db.Integer, nullable=False)
+    release_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     price = db.Column(db.Numeric(10,2), nullable=False)
     image_file = db.Column(db.String(30), nullable=False, default='default.jpg')
     stock_level = db.Column(db.Integer, nullable=False)
     manufacturer_id = db.Column(db.Integer, db.ForeignKey('manufacturer.id'), nullable=False)
 
     def __repr__(self):
-        return f"Book('{self.model}', '{self.description}', '{self.price}', '{self.stock_level}')"
+        return f"Book('{self.model}', '{self.description}', '{self.mass}', '{self.ram}', '{self.publication_date}', '{self.price}', '{self.stock_level}')"
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
