@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Payment</h1>
+
+    <div class="">
+      <h3>Your basket total is: £{{total}}</h3>
+    </div>
+    <div class="">
+      {{ form.credit_card_number.label }} {{form.credit_card_number}}
+      {% for error in form.credit_card_number.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div class="">
+      {{ form.expiry_date.label }} {{form.expiry_date}}
+      {% for error in form.expiry_date.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+    <div class="">
+      {{ form.csv.label }} {{form.csv}}
+      {% for error in form.csv.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </div>
+<p>
+
+      {{ form.submit() }}
+</p>
+
+{% endblock content %}

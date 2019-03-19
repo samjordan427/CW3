@@ -9,7 +9,7 @@ class Manufacturer(db.Model):
     phones = db.relationship('Phone', backref='manufacturer', lazy=True)
 
     def __repr__(self):
-        return f"Author('{self.name}')"
+        return f"Manufacturer('{self.name}')"
 
 class Phone(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,7 +24,7 @@ class Phone(db.Model):
     manufacturer_id = db.Column(db.Integer, db.ForeignKey('manufacturer.id'), nullable=False)
 
     def __repr__(self):
-        return f"Book('{self.model}', '{self.description}', '{self.mass}', '{self.ram}', '{self.publication_date}', '{self.price}', '{self.stock_level}')"
+        return f"Phone('{self.model}', '{self.description}', '{self.mass}', '{self.ram}', '{self.publication_date}', '{self.price}', '{self.stock_level}')"
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -50,3 +50,11 @@ class User(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer)
+    phone_id = db.Column(db.Integer, db.ForeignKey('phone.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Cart('{self.quantity}')"

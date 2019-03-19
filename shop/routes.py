@@ -2,14 +2,14 @@ import os
 from flask import render_template, url_for, request, redirect, flash, session
 from shop import app, db
 from shop.models import Manufacturer, Phone, User
-from shop.forms import RegistrationForm , LoginForm
+from shop.forms import RegistrationForm , LoginForm, CheckoutForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
 @app.route("/home")
 def home():
     phones = Phone.query.all()
-    return render_template('home.html', phones=phones)
+    return render_template('home.html', phones=phones,title="Phone Hub")
 
 @app.route("/about")
 def about():
@@ -76,10 +76,10 @@ def cart_display():
             if phone.id in cart:
                 cart[phone.id]["quantity"] += 1
             else:
-                cart[phone.id] = {"quantity":1, "Product": phone.model, "price":phone.price}
+                cart[phone.id] = {"quantity":1, "product": phone.model, "price":phone.price}
             total_quantity = sum(item['quantity'] for item in cart.values())
 
-        return render_template("cart.html", title='Your Shopping Cart', display_cart = cart, total = total_price, total_quantity = total_quantity)
+        return render_template("cart.html", title='Your Shopping Cart', display_cart = cart, total = total_price, quantity = total_quantity)
 
     return render_template('cart.html')
 
@@ -92,3 +92,22 @@ def delete_phone(phone_id):
     session.modified = True
 
     return redirect("/cart")
+
+@app.route("/checkout")
+def checkout():
+    items = session["cart"]
+    cart = {}
+    form = CheckoutForm()
+
+    total_price = 0
+    total_quantity = 0
+    for item in items:
+        phone = Phone.query.get_or_404(item)
+
+        total_price += phone.price
+        if phone.id in cart:
+            cart[phone.id]["quantity"] += 1
+        else:
+            cart[phone.id] = {"quantity":1, "Product": phone.model, "price":phone.price}
+        total_quantity = sum(item['quantity'] for item in cart.values())
+    return render_template('checkout.html', title='Payment', total=total_price, form=form)

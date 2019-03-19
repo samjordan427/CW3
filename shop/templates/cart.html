@@ -8,7 +8,7 @@
   {% for key, value in display_cart.items() %}
   <tr>
     <!-- <td>{{ key }}</td> -->
-    <td>{{ value["model"] }}</td>
+    <td>{{ value["product"] }}</td>
     <td>{{ value["quantity"] }}</td>
     <td>£{{ value["price"] }}</td>
     <td>£{{ (value["quantity"] * value["price"]) }}</td>
@@ -22,7 +22,10 @@
   {% endfor %}
 
 </table>
-<h3>Total: £{{ total }} </h3>
-<h3>Number of items: {{ total_quantity }} </h3>
+
+<h4>Total: £{{ total }} </h4>
+<h4>Number of items: {{ quantity }} </h4>
+<a href="{{ url_for('checkout') }}" class="header">Checkout</a>&nbsp
 
 {% endblock content %}
+localStorage.setItem({{ total }})

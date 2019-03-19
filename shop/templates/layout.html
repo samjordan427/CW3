@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='style.css') }}">
-  <title>Phonez4u</title>
+  <title>Phone Hub</title>
 </head>
 
 <<body>
@@ -19,7 +19,8 @@
     Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
     or <a href="{{ url_for('register') }}">Register</a>&nbsp|
     {% endif %}
-    <a href="{{ url_for('cart_display') }}" class="header">Cart ({{ total_quantity }}) </a>&nbsp|
+    <a href="{{ url_for('cart_display') }}" class="header">Cart ({{ quantity }}) </a>&nbsp|
+    <a href="{{url_for('checkout')}}" classs="header">Checkout </a>&nbsp|
   </div>
 
   <div>
@@ -38,6 +39,13 @@
     {% block content %}
     {% endblock %}
   </div>
+
+  <div class="footer">
+    Website for CM1102 Coursework<br />
+    Contact email: jordans3@cardiff.ac.uk <br />
+    Helpline number: 0800 123456789 <br />
+  </div>
+
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 from shop.models import User
 
@@ -24,3 +24,9 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class CheckoutForm(FlaskForm):
+    credit_card_number = IntegerField("Credit Card Number :", validators=[DataRequired(), Length(16)])
+    expiry_date = StringField("Expiry Date :", validators=[DataRequired(), Length(min=4 ,max=10)])
+    csv = StringField("CSV (Security Code) :", validators=[DataRequired(), Length(3)])
+    submit = SubmitField("Purchase")

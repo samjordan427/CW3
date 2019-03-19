@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Phones</h1>
+<h1>Phone Hub</h1>
 {% for phone in phones %}
 <a href="{{ url_for('phone', phone_id=phone.id) }}"><img src = "{{ url_for('static', filename='img/' + phone.image_file) }}"></a>
 
   <a href="{{ url_for('phone', phone_id=phone.id) }}">
     <p>{{ phone.model }} &nbsp Manufacturer: {{ phone.manufacturer.name }}</p></a>
     <a class="" href="/add_to_cart/{{phone.id}}">Add to Cart</a>
-  <p>Price: {{ phone.price }}</p>
-    
+  <p>Price: £{{ phone.price }}</p>
+
 {% endfor %}
 {% endblock content %}
